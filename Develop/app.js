@@ -12,6 +12,114 @@ const render = require("./lib/htmlRenderer");
 
 
 // Write code to use inquirer to gather information about the development team members,
+
+function init() {
+
+    inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?',
+    },
+    {
+      type: 'number',
+      name: 'id',
+      message: 'What is your id number?',
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is your email address?',
+    },
+    {
+      type: 'input',
+      name: 'office number',
+      message: 'What is your office number?',
+    },
+    {
+        type: 'list',
+        name: 'new',
+        message: 'What type of employee would you like to add?',
+        choices: ['Engineer', 'Intern'] 
+      },
+]).then((answers) => {
+
+    console.log(answers)
+    switch (answers.new) {
+        case "Engineer":
+            engineer();
+            break;
+        case "Intern":
+            intern();
+            break;    
+    
+        default:
+            break;
+    }
+})};   
+
+function engineer(){
+
+inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is employee name?',
+    },
+    {
+      type: 'number',
+      name: 'id',
+      message: 'What is employee id number?',
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is the employee email address?',
+    },
+    {
+      type: 'input',
+      name: 'office number',
+      message: 'What is employee GitHub?',
+    }
+    {
+        type: 'list',
+        name: 'new',
+        message: 'What type of employee would you like to add?',
+        choices: ['Engineer', 'Intern'] 
+      },
+])}
+function intern () {
+
+inquirer.prompt([
+        {
+          type: 'input',
+          name: 'name',
+          message: 'What is intern name?',
+        },
+        {
+          type: 'number',
+          name: 'id',
+          message: 'What is intern id number?',
+        },
+        {
+          type: 'input',
+          name: 'email',
+          message: 'What is the intern email address?',
+        },
+        {
+          type: 'input',
+          name: 'school',
+          message: 'What school is intern attending?',   
+        },
+        {
+            type: 'list',
+            name: 'new',
+            message: 'What type of employee would you like to add?',
+            choices: ['Engineer', 'Intern'] 
+          },
+    ])}
+  
+ init();
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
