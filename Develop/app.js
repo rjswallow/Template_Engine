@@ -44,7 +44,6 @@ function init() {
       },
 ]).then((answers) => {
 
-    console.log(answers)
     switch (answers.new) {
         case "Engineer":
             engineer();
@@ -52,6 +51,8 @@ function init() {
         case "Intern":
             intern();
             break;    
+            case "none":
+                break;  
     
         default:
             break;
@@ -80,16 +81,31 @@ inquirer.prompt([
       type: 'input',
       name: 'office number',
       message: 'What is employee GitHub?',
-    }
+    },
     {
         type: 'list',
         name: 'new',
         message: 'What type of employee would you like to add?',
-        choices: ['Engineer', 'Intern'] 
+        choices: ['Engineer', 'Intern', "none"] 
       },
-])}
-function intern () {
+    ]).then((answers) => {
 
+        switch (answers.new) {
+            case "Engineer":
+                engineer();
+                break;
+            case "Intern":
+                intern();
+                break;    
+                case "none":
+                    break;  
+        
+            default:
+                break;
+        }
+})}
+
+function intern() {
 inquirer.prompt([
         {
           type: 'input',
@@ -115,9 +131,26 @@ inquirer.prompt([
             type: 'list',
             name: 'new',
             message: 'What type of employee would you like to add?',
-            choices: ['Engineer', 'Intern'] 
+            choices: ['Engineer', 'Intern', 'none'] 
           },
-    ])}
+
+        ]).then((answers) => {
+
+            switch (answers.new) {
+                case "Engineer":
+                    engineer();
+                    break;
+                case "Intern":
+                    intern();
+                    break;    
+                    case "none":
+                        break;  
+            
+                default:
+                    break;
+            }
+    })};
+    
   
  init();
 // and to create objects for each team member (using the correct classes as blueprints!)
