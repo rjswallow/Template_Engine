@@ -10,6 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const arr = [];
+
+
 
 // Write code to use inquirer to gather information about the development team members,
 
@@ -33,7 +36,7 @@ function init() {
     },
     {
       type: 'input',
-      name: 'office number',
+      name: 'officeNumber',
       message: 'What is your office number?',
     },
     {
@@ -43,6 +46,8 @@ function init() {
         choices: ['Engineer', 'Intern'] 
       },
 ]).then((answers) => {
+const manager = new Manager(answers.name,answers.id, answers.email, answers.officeNumber);
+arr.push(manager);
 
     switch (answers.new) {
         case "Engineer":
@@ -51,8 +56,7 @@ function init() {
         case "Intern":
             intern();
             break;    
-            case "none":
-                break;  
+            
     
         default:
             break;
@@ -79,7 +83,7 @@ inquirer.prompt([
     },
     {
       type: 'input',
-      name: 'office number',
+      name: 'github',
       message: 'What is employee GitHub?',
     },
     {
@@ -89,6 +93,8 @@ inquirer.prompt([
         choices: ['Engineer', 'Intern', "none"] 
       },
     ]).then((answers) => {
+        const engineer = new Engineer (answers.name,answers.id, answers.email, answers.github);
+        arr.push(engineer);
 
         switch (answers.new) {
             case "Engineer":
@@ -98,6 +104,7 @@ inquirer.prompt([
                 intern();
                 break;    
                 case "none":
+                    console.log(arr)
                     break;  
         
             default:
@@ -135,7 +142,8 @@ inquirer.prompt([
           },
 
         ]).then((answers) => {
-
+ const intern = new Intern (answers.name,answers.id, answers.email, answers.school);
+        arr.push(intern);
             switch (answers.new) {
                 case "Engineer":
                     engineer();
@@ -144,6 +152,7 @@ inquirer.prompt([
                     intern();
                     break;    
                     case "none":
+                        console.log(arr)
                         break;  
             
                 default:
