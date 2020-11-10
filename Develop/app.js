@@ -19,81 +19,82 @@ const arr = [];
 function init() {
 
     inquirer.prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is your name?',
-    },
-    {
-      type: 'number',
-      name: 'id',
-      message: 'What is your id number?',
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: 'What is your email address?',
-    },
-    {
-      type: 'input',
-      name: 'officeNumber',
-      message: 'What is your office number?',
-    },
-    {
-        type: 'list',
-        name: 'new',
-        message: 'What type of employee would you like to add?',
-        choices: ['Engineer', 'Intern'] 
-      },
-]).then((answers) => {
-const manager = new Manager(answers.name,answers.id, answers.email, answers.officeNumber);
-arr.push(manager);
-
-    switch (answers.new) {
-        case "Engineer":
-            engineer();
-            break;
-        case "Intern":
-            intern();
-            break;    
-            
-    
-        default:
-            break;
-    }
-})};   
-
-function engineer(){
-
-inquirer.prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is employee name?',
-    },
-    {
-      type: 'number',
-      name: 'id',
-      message: 'What is employee id number?',
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: 'What is the employee email address?',
-    },
-    {
-      type: 'input',
-      name: 'github',
-      message: 'What is employee GitHub?',
-    },
-    {
-        type: 'list',
-        name: 'new',
-        message: 'What type of employee would you like to add?',
-        choices: ['Engineer', 'Intern', "none"] 
-      },
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is your name?',
+        },
+        {
+            type: 'number',
+            name: 'id',
+            message: 'What is your id number?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email address?',
+        },
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: 'What is your office number?',
+        },
+        {
+            type: 'list',
+            name: 'new',
+            message: 'What type of employee would you like to add?',
+            choices: ['Engineer', 'Intern']
+        },
     ]).then((answers) => {
-        const engineer = new Engineer (answers.name,answers.id, answers.email, answers.github);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        arr.push(manager);
+
+        switch (answers.new) {
+            case "Engineer":
+                engineer();
+                break;
+            case "Intern":
+                intern();
+                break;
+
+
+            default:
+                break;
+        }
+    })
+};
+
+function engineer() {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is employee name?',
+        },
+        {
+            type: 'number',
+            name: 'id',
+            message: 'What is employee id number?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the employee email address?',
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is employee GitHub?',
+        },
+        {
+            type: 'list',
+            name: 'new',
+            message: 'What type of employee would you like to add?',
+            choices: ['Engineer', 'Intern', "none"]
+        },
+    ]).then((answers) => {
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
         arr.push(engineer);
 
         switch (answers.new) {
@@ -102,66 +103,76 @@ inquirer.prompt([
                 break;
             case "Intern":
                 intern();
-                break;    
-                case "none":
-                    console.log(arr)
-                    break;  
-        
+                break;
+            case "none":
+                fs.writeFile(outputPath, render(arr), (err) => {
+                    if (err) throw err;
+
+                });
+                break;
+
             default:
                 break;
         }
-})}
+    })
+}
 
 function intern() {
-inquirer.prompt([
+    inquirer.prompt([
         {
-          type: 'input',
-          name: 'name',
-          message: 'What is intern name?',
+            type: 'input',
+            name: 'name',
+            message: 'What is intern name?',
         },
         {
-          type: 'number',
-          name: 'id',
-          message: 'What is intern id number?',
+            type: 'number',
+            name: 'id',
+            message: 'What is intern id number?',
         },
         {
-          type: 'input',
-          name: 'email',
-          message: 'What is the intern email address?',
+            type: 'input',
+            name: 'email',
+            message: 'What is the intern email address?',
         },
         {
-          type: 'input',
-          name: 'school',
-          message: 'What school is intern attending?',   
+            type: 'input',
+            name: 'school',
+            message: 'What school is intern attending?',
         },
         {
             type: 'list',
             name: 'new',
             message: 'What type of employee would you like to add?',
-            choices: ['Engineer', 'Intern', 'none'] 
-          },
+            choices: ['Engineer', 'Intern', 'none']
+        },
 
-        ]).then((answers) => {
- const intern = new Intern (answers.name,answers.id, answers.email, answers.school);
+    ]).then((answers) => {
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         arr.push(intern);
-            switch (answers.new) {
-                case "Engineer":
-                    engineer();
-                    break;
-                case "Intern":
-                    intern();
-                    break;    
-                    case "none":
-                        console.log(arr)
-                        break;  
-            
-                default:
-                    break;
-            }
-    })};
-    
-  
- init();
+        switch (answers.new) {
+            case "Engineer":
+                engineer();
+                break;
+            case "Intern":
+                intern();
+                break;
+            case "none":
+                fs.writeFile(outputPath, render(arr), (err) => {
+                    if (err) throw err;
+
+                });
+                break;
+
+            default:
+                break;
+        }
+    })
+};
+
+
+init();
+
+
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
