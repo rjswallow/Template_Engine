@@ -11,6 +11,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 const arr = [];
+const idArr = [];
+const validateId = async (data) => {
+if(idArr.includes(data) === true || isNaN(data) ) {
+    return  "ID not valid, please use numerical values";
+} return true;
+
+};
 
 
 
@@ -28,6 +35,7 @@ function init() {
             type: 'number',
             name: 'id',
             message: 'What is your id number?',
+            validate: validateId,
         },
         {
             type: 'input',
@@ -48,6 +56,7 @@ function init() {
     ]).then((answers) => {
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         arr.push(manager);
+        idArr.push(answers.id);
 
         switch (answers.new) {
             case "Engineer":
@@ -76,6 +85,7 @@ function engineer() {
             type: 'number',
             name: 'id',
             message: 'What is employee id number?',
+            validate: validateId,
         },
         {
             type: 'input',
@@ -96,7 +106,7 @@ function engineer() {
     ]).then((answers) => {
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
         arr.push(engineer);
-
+        idArr.push(answers.id);
         switch (answers.new) {
             case "Engineer":
                 engineer();
@@ -128,6 +138,7 @@ function intern() {
             type: 'number',
             name: 'id',
             message: 'What is intern id number?',
+            validate: validateId,
         },
         {
             type: 'input',
@@ -149,6 +160,7 @@ function intern() {
     ]).then((answers) => {
         const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         arr.push(intern);
+        idArr.push(answers.id);
         switch (answers.new) {
             case "Engineer":
                 engineer();
